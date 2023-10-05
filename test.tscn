@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://264bust63o7p"]
+
+[ext_resource type="PackedScene" uid="uid://nsrkxacimb3g" path="res://character/turtle.tscn" id="1_lck61"]
+[ext_resource type="Texture2D" uid="uid://4yu7nclya41l" path="res://assets/ground.png" id="1_xydiu"]
+[ext_resource type="PackedScene" uid="uid://df4qplbcx66kd" path="res://obstacles/cactus_short.tscn" id="2_54pk5"]
+[ext_resource type="PackedScene" uid="uid://cn06lysonq4ic" path="res://obstacles/spawner.tscn" id="3_2hius"]
+[ext_resource type="PackedScene" uid="uid://bhxy08jf18nao" path="res://obstacles/cactus_tall.tscn" id="4_31qtl"]
+[ext_resource type="PackedScene" uid="uid://dbargxolko4yx" path="res://obstacles/cactus_tall_double.tscn" id="6_i3kct"]
+[ext_resource type="PackedScene" uid="uid://2sqyx77w0266" path="res://obstacles/cactus_tall_triple.tscn" id="7_5sary"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_818yh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_udnpc"]
+size = Vector2(20, 310)
+
+[node name="Test" type="Node2D"]
+
+[node name="Ground" type="Sprite2D" parent="."]
+position = Vector2(650, 351)
+texture = ExtResource("1_xydiu")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(658, 525)
+scale = Vector2(34, 1)
+shape = SubResource("RectangleShape2D_818yh")
+
+[node name="Spawner" parent="." instance=ExtResource("3_2hius")]
+position = Vector2(823, 178)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-177, 124)
+shape = SubResource("RectangleShape2D_udnpc")
+
+[node name="Turtle" parent="." instance=ExtResource("1_lck61")]
+position = Vector2(637, 312)
+
+[node name="CactusShort" parent="." instance=ExtResource("2_54pk5")]
+position = Vector2(990, 354)
+
+[node name="CactusTall" parent="." instance=ExtResource("4_31qtl")]
+position = Vector2(1039, 354)
+
+[node name="CactusTallDouble" parent="." instance=ExtResource("6_i3kct")]
+position = Vector2(1120, 354)
+
+[node name="CactusTallTriple" parent="." instance=ExtResource("7_5sary")]
+position = Vector2(1247, 354)

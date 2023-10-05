@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn06lysonq4ic"]
+
+[ext_resource type="Script" path="res://obstacles/spawner.gd" id="1_1r2i1"]
+
+[node name="Spawner" type="Node2D"]
+script = ExtResource("1_1r2i1")
+
+[node name="Timer" type="Timer" parent="."]

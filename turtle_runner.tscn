@@ -1,0 +1,275 @@
+[gd_scene load_steps=17 format=3 uid="uid://bn32uu41vkxot"]
+
+[ext_resource type="PackedScene" uid="uid://cn06lysonq4ic" path="res://obstacles/spawner.tscn" id="1_cb6mn"]
+[ext_resource type="PackedScene" uid="uid://nsrkxacimb3g" path="res://character/turtle.tscn" id="1_nc1jq"]
+[ext_resource type="Script" path="res://turtle_runner.gd" id="1_wh3sk"]
+[ext_resource type="Texture2D" uid="uid://4yu7nclya41l" path="res://assets/ground.png" id="2_2wvna"]
+[ext_resource type="Texture2D" uid="uid://bwiv5n0m5efxj" path="res://assets/cloud.png" id="5_wrdea"]
+[ext_resource type="FontFile" uid="uid://bal2rswqhtjjb" path="res://fonts/PixeloidSans-JR6qo.ttf" id="6_qmovj"]
+[ext_resource type="Texture2D" uid="uid://d3lw2tup8anbu" path="res://assets/play.png" id="6_ta22e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8in8f"]
+size = Vector2(26.841, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1nj8"]
+size = Vector2(20, 433)
+
+[sub_resource type="Theme" id="Theme_s43ep"]
+Label/colors/font_color = Color(0.32549, 0.32549, 0.32549, 1)
+Label/colors/font_outline_color = Color(0.32549, 0.32549, 0.32549, 1)
+Label/font_sizes/font_size = 36
+Label/fonts/font = ExtResource("6_qmovj")
+
+[sub_resource type="Animation" id="Animation_uop7y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ground:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1200, 452)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ground2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3600, 452)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Cloud:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1546, 88)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Cloud2:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1546, 136)]
+}
+
+[sub_resource type="Animation" id="Animation_w74ef"]
+resource_name = "cloud_2_moving"
+length = 33.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cloud2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 33),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1546, 136), Vector2(-46, 136)]
+}
+
+[sub_resource type="Animation" id="Animation_wivkp"]
+resource_name = "cloud_moving"
+length = 15.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cloud:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1546, 88), Vector2(-46, 88)]
+}
+
+[sub_resource type="Animation" id="Animation_oa0oj"]
+resource_name = "ground_moving"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ground:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1200, 452), Vector2(600, 452), Vector2(0, 452), Vector2(-600, 452), Vector2(-1200, 452)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ground2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3600, 452), Vector2(1200, 452)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d7e1h"]
+_data = {
+"RESET": SubResource("Animation_uop7y"),
+"cloud_2_moving": SubResource("Animation_w74ef"),
+"cloud_moving": SubResource("Animation_wivkp"),
+"ground_moving": SubResource("Animation_oa0oj")
+}
+
+[sub_resource type="Theme" id="Theme_xbebh"]
+default_font = ExtResource("6_qmovj")
+Label/colors/font_color = Color(0.32549, 0.32549, 0.32549, 1)
+Label/colors/font_outline_color = Color(0.324219, 0.324219, 0.324219, 1)
+Label/font_sizes/font_size = 27
+
+[node name="TurtleRunner" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wh3sk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.917647, 0.917647, 0.917647, 1)
+
+[node name="Spawner" parent="." instance=ExtResource("1_cb6mn")]
+position = Vector2(1692, 461)
+
+[node name="Turtle" parent="." instance=ExtResource("1_nc1jq")]
+position = Vector2(151, 419)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(605.5, 469)
+scale = Vector2(47.8, 1)
+shape = SubResource("RectangleShape2D_8in8f")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-698, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(557, 219.5)
+shape = SubResource("RectangleShape2D_k1nj8")
+
+[node name="Ground" type="Sprite2D" parent="."]
+position = Vector2(1200, 452)
+texture = ExtResource("2_2wvna")
+
+[node name="Ground2" type="Sprite2D" parent="."]
+position = Vector2(3600, 452)
+texture = ExtResource("2_2wvna")
+
+[node name="Cloud" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1546, 88)
+texture = ExtResource("5_wrdea")
+
+[node name="Cloud2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1546, 136)
+texture = ExtResource("5_wrdea")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -296.0
+offset_bottom = 47.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = SubResource("Theme_s43ep")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 24
+
+[node name="HiScore" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "HI 00000"
+
+[node name="CurrentScore" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "00000"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d7e1h")
+}
+
+[node name="CloudAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d7e1h")
+}
+
+[node name="Cloud2AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d7e1h")
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -18.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = SubResource("Theme_xbebh")
+text = "Start"
+horizontal_alignment = 1
+
+[node name="PlayButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("6_ta22e")
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

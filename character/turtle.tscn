@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://nsrkxacimb3g"]
+
+[ext_resource type="Texture2D" uid="uid://51l644dk6spx" path="res://assets/turtle_idle.png" id="1_76hlq"]
+[ext_resource type="Script" path="res://character/turtle.gd" id="1_et2sp"]
+[ext_resource type="Texture2D" uid="uid://dhh1bml3b48o8" path="res://assets/turtle_dead.png" id="3_k66nh"]
+[ext_resource type="Texture2D" uid="uid://bcppp2k2cx4o" path="res://assets/turtle_run_1.png" id="4_2sry7"]
+[ext_resource type="Texture2D" uid="uid://h1stccgey2wn" path="res://assets/turtle_run_2.png" id="5_05ltp"]
+[ext_resource type="AudioStream" uid="uid://d2i0o74ph1a4m" path="res://sounds/death.wav" id="6_jxasi"]
+[ext_resource type="AudioStream" uid="uid://ckv2cnu2w7opl" path="res://sounds/jump.wav" id="7_dkyrv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8h77l"]
+size = Vector2(24, 84)
+
+[sub_resource type="Animation" id="Animation_8ylaj"]
+resource_name = "running"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Running1:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Running2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_14d1l"]
+_data = {
+"running": SubResource("Animation_8ylaj")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mrpfq"]
+size = Vector2(24, 84)
+
+[node name="Turtle" type="CharacterBody2D"]
+collision_layer = 3
+script = ExtResource("1_et2sp")
+
+[node name="Default" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_76hlq")
+
+[node name="Dead" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+texture = ExtResource("3_k66nh")
+
+[node name="Running1" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+texture = ExtResource("4_2sry7")
+
+[node name="Running2" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+texture = ExtResource("5_05ltp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_8h77l")
+debug_color = Color(0.913725, 0, 0.717647, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_14d1l")
+}
+
+[node name="CactusDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CactusDetector"]
+position = Vector2(-4, 0)
+shape = SubResource("RectangleShape2D_mrpfq")
+
+[node name="DeathAudio" type="AudioStreamPlayer2D" parent="CactusDetector"]
+stream = ExtResource("6_jxasi")
+
+[node name="JumpAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_dkyrv")

@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://c3frp3db1jt4m"]
+
+[ext_resource type="Texture2D" uid="uid://3ey7yuebsws2" path="res://assets/petrie_1.png" id="1_s01bn"]
+[ext_resource type="Script" path="res://obstacles/petrie.gd" id="1_sijg5"]
+[ext_resource type="Texture2D" uid="uid://bxasrlmq4sb04" path="res://assets/petrie_2.png" id="2_djg65"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jbood"]
+size = Vector2(60, 26)
+
+[sub_resource type="Animation" id="Animation_b6eiw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlapDown:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FlapUp:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_fh6xj"]
+resource_name = "flap"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FlapDown:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FlapUp:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2pbqu"]
+_data = {
+"RESET": SubResource("Animation_b6eiw"),
+"flap": SubResource("Animation_fh6xj")
+}
+
+[node name="Petrie" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_sijg5")
+
+[node name="FlapUp" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_s01bn")
+
+[node name="FlapDown" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_djg65")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-12, 3)
+shape = SubResource("RectangleShape2D_jbood")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "flap"
+libraries = {
+"": SubResource("AnimationLibrary_2pbqu")
+}
